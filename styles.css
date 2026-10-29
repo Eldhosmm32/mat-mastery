@@ -1,0 +1,405 @@
+:root {
+  --blue: #4a90d9;
+  --blue-dark: #3574b5;
+  --ink: #2e3440;
+  --muted: #6b7684;
+  --bg: #f7f8fa;
+  --card: #ffffff;
+  --border: #e2e5ea;
+  --green: #2f9e6e;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  min-height: 100vh;
+  padding: 24px;
+}
+
+.wrap {
+  width: 100%;
+  max-width: 440px;
+  margin: 0 auto;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.topbar h1 {
+  font-size: 22px;
+  margin: 0;
+}
+
+.topbar .sub {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.topbar img{
+    width: 35px;
+    height: 35px;
+    padding: 1px;
+}
+
+.points-box {
+  text-align: right;
+}
+
+.points-box .label {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.points-box .value {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--blue-dark);
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 26px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.center {
+  text-align: center;
+}
+
+p.instructions {
+  color: var(--muted);
+  line-height: 1.5;
+  margin-bottom: 18px;
+  font-size: 14px;
+}
+
+input[type="text"],
+input[type="number"] {
+  width: 100%;
+  padding: 11px;
+  border: 1px solid #c8ccd2;
+  border-radius: 8px;
+  font-size: 15px;
+  margin-bottom: 12px;
+}
+
+label {
+  font-size: 12px;
+  color: var(--muted);
+  display: block;
+  margin-bottom: 4px;
+}
+
+input:focus {
+  outline: 2px solid var(--blue);
+  border-color: var(--blue);
+}
+
+button.primary {
+  background: var(--blue);
+  color: #fff;
+  border: none;
+  font-weight: 600;
+  font-size: 15px;
+  padding: 12px 22px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+button.primary:disabled {
+  background: #d7dbe1;
+  color: #98a0ab;
+}
+
+button.full {
+  width: 100%;
+}
+
+.tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.tab-btn {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.tab-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.tab-btn.active {
+  background: var(--blue);
+  color: #fff;
+  border-color: var(--blue);
+}
+
+.list-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 14px 16px;
+  border-radius: 10px;
+  background: var(--bg);
+  margin-bottom: 8px;
+  cursor: pointer;
+}
+
+.list-row:hover {
+  background: #eef1f5;
+}
+
+.list-row .title {
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.list-row .meta {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.list-row .chev {
+  color: var(--muted);
+}
+
+.breadcrumb {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 4px;
+  cursor: pointer;
+}
+
+.breadcrumb span {
+  text-decoration: underline;
+}
+
+.level-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.level-row.clickable {
+  cursor: pointer;
+  background: var(--bg);
+}
+
+.level-row.clickable:hover {
+  background: #eef1f5;
+}
+
+.level-row.locked {
+  color: #b7bcc4;
+}
+
+.level-row.current {
+  background: #e6f1fb;
+  font-weight: 600;
+}
+
+.level-row .icon {
+  width: 18px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.progress-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 18px;
+}
+
+.timer {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.q-label {
+  font-size: 26px;
+  font-weight: 700;
+  text-align: center;
+  margin: 24px 0;
+}
+
+.score-box {
+  background: var(--bg);
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-bottom: 14px;
+  font-size: 14px;
+}
+
+.score-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 3px 0;
+  color: var(--muted);
+}
+
+.score-row span:last-child {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.hint {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: center;
+  margin-bottom: 14px;
+}
+
+.explain-highlight {
+  background: #fff3cd;
+  border-radius: 6px;
+  padding: 2px 8px;
+  animation: pulseHighlight 1s ease-in-out infinite alternate;
+}
+
+@keyframes pulseHighlight {
+  from {
+    background: #fff3cd;
+  }
+
+  to {
+    background: #ffe58a;
+  }
+}
+
+.unlock-banner {
+  background: #e9f6ef;
+  color: #1f6e4e;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.personal-best-banner {
+  background: linear-gradient(135deg, #fdf0ff, #f3e8ff);
+  color: #7c3aed;
+  border: 1px solid #e9d5ff;
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 14px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.result-headline {
+  font-weight: 700;
+  font-size: 17px;
+  margin-bottom: 4px;
+}
+
+.result-headline.mastered {
+  color: var(--green);
+}
+
+.shop-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.shop-item {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px;
+  text-align: center;
+  background: var(--bg);
+}
+
+.shop-item svg {
+  width: 56px;
+  height: 56px;
+  margin-bottom: 6px;
+}
+
+.shop-item .name {
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.shop-item .cost {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+.shop-item button {
+  width: 100%;
+  font-size: 13px;
+  padding: 8px;
+  border-radius: 8px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.shop-item button.buy {
+  background: var(--blue);
+  color: #fff;
+}
+
+.shop-item button.buy:disabled {
+  background: #d7dbe1;
+  color: #98a0ab;
+}
+
+.footnote {
+  text-align: center;
+  font-size: 11px;
+  color: #a1a8b2;
+  margin-top: 14px;
+}
+
+.switch-link {
+  font-size: 12px;
+  color: var(--muted);
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.error-text {
+  color: #c0392b;
+  font-size: 13px;
+  margin-bottom: 10px;
+}

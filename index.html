@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Maths Mastery</title>
+    <link rel="stylesheet" href="styles.css" />
+
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="topbar">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
+                <span id="homeMenuBtn" style="cursor:pointer;font-size:22px;line-height:1;display:none;"
+                    title="Main menu">
+                    <img src="assets/home.svg" alt="Menu" style="vertical-align:middle;" />
+                </span>
+                <div style="display:flex;flex-direction:column;">
+                    <h1 style="margin:0;">Maths Mastery</h1>
+                    <div class="sub" id="subLine">Pick a topic, practice to master it</div>
+                </div>
+            </div>
+
+            <div class="points-box">
+                <div class="label">Total points</div>
+                <div class="value" id="pointsDisplay">—</div>
+            </div>
+        </div>
+        <div class="card" id="card"></div>
+        <div class="footnote" id="footnote" style="display:none;"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
