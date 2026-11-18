@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Maths Mastery</title>
     <link rel="stylesheet" href="styles.css" />
-
+    <!-- Add Supabase JS Client via CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 
 <body>
@@ -23,7 +24,7 @@
                 </div>
             </div>
 
-            <div class="points-box">
+            <div class="points-box" id="pointsBox" style="display:none;">
                 <div class="label">Total points</div>
                 <div class="value" id="pointsDisplay">—</div>
             </div>
@@ -31,6 +32,7 @@
         <div class="card" id="card"></div>
         <div class="footnote" id="footnote" style="display:none;"></div>
     </div>
+    <script src="supabase.js"></script>
     <script src="script.js"></script>
 </body>
 

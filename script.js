@@ -2441,6 +2441,699 @@ const EXPLANATIONS = [
     ],
   },
 ];
+
+function addLearnLesson(key, title, subtitle, steps) {
+  EXPLANATIONS.push({
+    key: key,
+    title: title,
+    subtitle: subtitle,
+    steps: steps.map((step) => ({
+      html: '<div class="q-label">' + step[0] + "</div>",
+      caption: step[1],
+    })),
+  });
+}
+
+function addTableLearnLesson(multiplier, title, tip) {
+  EXPLANATIONS.push({
+    key: "times" + multiplier + "table",
+    title: title,
+    subtitle: "Memorise this before practicing",
+    steps: [
+      {
+        html: buildTimesTableHTML(multiplier),
+        caption: tip,
+      },
+    ],
+  });
+}
+
+function addDivisionLearnLesson(divisor, title, tip) {
+  EXPLANATIONS.push({
+    key: "div" + divisor + "table",
+    title: title,
+    subtitle: "Memorise this before practicing",
+    steps: [
+      {
+        html: buildDivisionTableHTML(divisor),
+        caption: tip,
+      },
+    ],
+  });
+}
+
+function addLongDivisionLearnLesson(key, title, subtitle, dividend, divisor) {
+  const quotient = Math.floor(dividend / divisor);
+  const remainder = dividend % divisor;
+  const answer = remainder ? quotient + " remainder " + remainder : quotient + "";
+  EXPLANATIONS.push({
+    key: key,
+    title: title,
+    subtitle: subtitle,
+    steps: [
+      {
+        html: '<div class="q-label">' + dividend + " ÷ " + divisor + " = ?</div>",
+        caption:
+          "Write " +
+          divisor +
+          " outside the division bracket and " +
+          dividend +
+          " inside. Work from the left, one digit at a time.",
+      },
+      {
+        html:
+          '<div class="q-label">' +
+          dividend +
+          " ÷ " +
+          divisor +
+          " = <span class=\"explain-highlight\">" +
+          answer +
+          "</span></div>",
+        caption:
+          "At each step, find how many times " +
+          divisor +
+          " fits into the number you have, write that digit in the quotient, then subtract and bring down the next digit.",
+      },
+      {
+        html:
+          '<div class="q-label">' +
+          quotient +
+          " × " +
+          divisor +
+          " = " +
+          quotient * divisor +
+          (remainder ? " + " + remainder : "") +
+          " = " +
+          dividend +
+          "</div>",
+        caption: remainder
+          ? "The remainder " +
+            remainder +
+            " is smaller than the divisor. Check: quotient × divisor + remainder = dividend."
+          : "Check by multiplying the quotient by the divisor. The result should equal the dividend.",
+      },
+    ],
+  });
+}
+
+addLearnLesson("addmany", "Adding several numbers", "Look for pairs that make 10", [
+  ["3 + 6 + 7 + 4 = ?", "When there are several numbers, look for easy pairs before adding."],
+  ["3 + 7 = 10 &nbsp;&nbsp; 6 + 4 = 10", "Pair numbers that make 10. You can add numbers in any order."],
+  ["10 + 10 = 20", "Add the pairs: two tens make 20."],
+]);
+addLearnLesson(
+  "columncarry",
+  "Column addition with carrying over",
+  "When the ones add up to 10 or more",
+  [
+    ["87 + 5", "Line up the numbers by place value, with ones under ones."],
+    ["7 + 5 = 12", "Write 2 in the ones column and carry 1 ten to the tens column."],
+    ["8 + 1 = 9 &nbsp;&nbsp; 87 + 5 = 92", "Add the carried ten to the tens. The answer is 92."],
+  ],
+);
+addLearnLesson(
+  "columncarry3",
+  "Carrying over with bigger numbers",
+  "Carry from one column to the next",
+  [
+    ["497 + 227", "Line up ones, tens and hundreds, and start from the right."],
+    ["7 + 7 = 14 &nbsp;→&nbsp; write 4, carry 1", "Add the ones. Write the ones digit and carry the tens."],
+    ["9 + 2 + 1 = 12 &nbsp;→&nbsp; write 2, carry 1", "Add the tens, including the carried ten."],
+    ["4 + 2 + 1 = 7 &nbsp;&nbsp; 497 + 227 = 724", "Finish with the hundreds. The total is 724."],
+  ],
+);
+addLearnLesson(
+  "columnborrow",
+  "Column subtraction with borrowing",
+  "When the top digit is too small",
+  [
+    ["83 − 38", "Line up the numbers and start in the ones column."],
+    ["3 − 8 cannot be done", "Borrow 1 ten from the 8 tens. The 3 ones become 13 ones."],
+    ["13 − 8 = 5 &nbsp;&nbsp; 7 − 3 = 4", "Subtract the ones, then the tens. 83 − 38 = 45."],
+  ],
+);
+addLearnLesson(
+  "columnborrow3",
+  "Borrowing with bigger numbers",
+  "Borrow from the next column to the left",
+  [
+    ["424 − 337", "Line up the digits and begin with the ones column."],
+    ["14 − 7 = 7", "Borrow 1 ten: 4 ones become 14 ones."],
+    ["11 − 3 = 8", "The tens column is now too small too, so borrow 1 hundred."],
+    ["3 − 3 = 0 &nbsp;&nbsp; 424 − 337 = 87", "Finish the hundreds. The leading zero is not written, so the answer is 87."],
+  ],
+);
+
+addTableLearnLesson(
+  3,
+  "The 3 Times Table",
+  "3 times a number is its double plus one more of it. For example, 3 × 4 = 8 + 4 = 12.",
+);
+addTableLearnLesson(
+  4,
+  "The 4 Times Table",
+  "Double the number, then double again. For 4 × 6, double 6 to get 12, then double 12 to get 24.",
+);
+addTableLearnLesson(
+  6,
+  "The 6 Times Table",
+  "Think of 6 times a number as 5 times it plus one more. 6 × 7 = 35 + 7 = 42.",
+);
+addTableLearnLesson(
+  7,
+  "The 7 Times Table",
+  "Split 7 into 5 + 2. For 7 × 6, work out 30 + 12 = 42.",
+);
+addTableLearnLesson(
+  8,
+  "The 8 Times Table",
+  "Double, double and double again. For 8 × 6: 6 → 12 → 24 → 48.",
+);
+addTableLearnLesson(
+  9,
+  "The 9 Times Table",
+  "Think of 9 times a number as 10 times it minus one more. 9 × 7 = 70 − 7 = 63.",
+);
+addTableLearnLesson(
+  11,
+  "The 11 Times Table",
+  "Up to 9 × 11, write the digit twice (4 × 11 = 44). For larger facts, use 10 times plus one more.",
+);
+addTableLearnLesson(
+  12,
+  "The 12 Times Table",
+  "Think of 12 times a number as 10 times it plus 2 times it. 12 × 7 = 70 + 14 = 84.",
+);
+addLearnLesson(
+  "swapfactors",
+  "Swap the numbers around",
+  "A times table trick that halves the work",
+  [
+    ["3 × 7 = 21", "Multiplication can be shown as 3 rows of 7 dots."],
+    ["7 × 3 = 21", "Turn the array around: 7 rows of 3 still make 21 dots."],
+    ["3 × 7 = 7 × 3", "You can swap the factors without changing the product."],
+  ],
+);
+addLearnLesson(
+  "squarenumbers",
+  "Square numbers",
+  "A number multiplied by itself",
+  [
+    ["2 × 2 = 4", "Two rows of two make a square array."],
+    ["3 × 3 = 9 &nbsp;&nbsp; 4 × 4 = 16", "A number multiplied by itself is called a square number."],
+    ["1, 4, 9, 16, 25, 36 …", "These are the square numbers: 1², 2², 3², 4², 5², 6² and so on."],
+  ],
+);
+addLearnLesson(
+  "squaredwords",
+  'What does "squared" mean?',
+  "A shorter way to say a number times itself",
+  [
+    ["5 squared = 5 × 5", "“5 squared” means 5 multiplied by itself. It is written 5²."],
+    ["5 × 5 = 25", "A 5-by-5 array has 25 dots."],
+    ["7 squared = 7 × 7 = 49", "To square any number, multiply it by itself."],
+  ],
+);
+addLearnLesson(
+  "squaretable",
+  "Square numbers",
+  "Learn these by heart",
+  [
+    ["5 × 5 = 25 = 5²", "A square number is a number multiplied by itself."],
+    ["1² = 1 &nbsp; · &nbsp; 2² = 4 &nbsp; · &nbsp; 3² = 9", "Learn the square numbers in order. Notice how quickly the answers grow."],
+    ["25² = 625", "Use the table from 1² to 25² to recall square numbers and their roots."],
+  ],
+);
+addLearnLesson(
+  "squaresend5",
+  "Squares of numbers ending in 5",
+  "A pattern that makes them easy",
+  [
+    ["15² = ?", "For a number ending in 5, look at the digit before the 5."],
+    ["1 × (1 + 1) = 2", "Multiply that digit by the next whole number."],
+    ["2 | 25 → 15² = 225", "Write 25 after the product. For 85², 8 × 9 = 72, so 85² = 7225."],
+  ],
+);
+addLearnLesson(
+  "squaresend0",
+  "Squares of numbers ending in 0",
+  "Square the digit, then count the zeros",
+  [
+    ["20² = ?", "Ignore the zero and square the non-zero part: 2 × 2 = 4."],
+    ["20 has one zero", "When squaring, the answer has twice as many zeros."],
+    ["20² = 400 &nbsp;&nbsp; 200² = 40000", "Square the non-zero part and append the doubled number of zeros."],
+  ],
+);
+addLearnLesson(
+  "sqrootintro",
+  "Square roots",
+  "The opposite of squaring",
+  [
+    ["√49 = ?", "A square root asks which number multiplied by itself gives the number under the root sign."],
+    ["7 × 7 = 49", "Seven multiplied by itself is 49."],
+    ["√49 = 7", "Use known square numbers to find their square roots."],
+  ],
+);
+addLearnLesson(
+  "sqrootend5",
+  "Square roots of numbers ending in 25",
+  "Use the pattern backwards",
+  [
+    ["√2025 = ?", "A square number ending in 25 has a square root ending in 5."],
+    ["Cover the 25: 20", "Find two consecutive numbers that multiply to the part before 25."],
+    ["4 × 5 = 20 → √2025 = 45", "Write the smaller factor before the 5. Check: 45 × 45 = 2025."],
+  ],
+);
+addLearnLesson(
+  "sqrootend0",
+  "Square roots of numbers ending in 00",
+  "Take the square root, then halve the zeros",
+  [
+    ["√40000 = ?", "Find the square root of the non-zero part: √4 = 2."],
+    ["40000 has 4 zeros", "Halve the number of zeros to find how many zeros belong in the root."],
+    ["√40000 = 200", "The root is 2 followed by 2 zeros. Check: 200 × 200 = 40000."],
+  ],
+);
+addLearnLesson(
+  "sqrootmethod",
+  "Square roots of bigger perfect squares",
+  "Trap the number between two squares",
+  [
+    ["√1681 = ?", "Find nearby tens that are perfect squares: 40² = 1600 and 50² = 2500."],
+    ["40² < 1681 < 50²", "The root is between 40 and 50. Try halfway: 45² = 2025, which is too large."],
+    ["41 × 41 = 1681", "The root ends in 1 or 9 because the square ends in 1. Between 40 and 45, that gives 41."],
+  ],
+);
+addLearnLesson(
+  "averagesall",
+  "Mean, median, mode and range",
+  "Four ways to describe a list of numbers",
+  [
+    ["Mean = total ÷ how many", "Add all values and divide by the number of values."],
+    ["Median = middle value", "Put the numbers in order. If there are two middle values, find their midpoint."],
+    ["Mode = most common &nbsp; · &nbsp; Range = largest − smallest", "The mode appears most often. The range measures the difference between the largest and smallest."],
+  ],
+);
+addLearnLesson(
+  "lcmmethods",
+  "Least Common Multiple (LCM)",
+  "The smallest number that all of them divide into",
+  [
+    ["Multiples of 4: 4, 8, 12 …", "List multiples until you find one shared by every number."],
+    ["LCM of 4, 3 and 2 = 12", "12 is the smallest positive number divisible by 4, 3 and 2."],
+    ["Use the ladder method", "Divide the numbers by common prime factors, then multiply the side factors and the remaining bottom row."],
+  ],
+);
+addLearnLesson(
+  "fractionshapes",
+  "Fractions of a shape",
+  "Count the shaded parts, then count all the equal parts",
+  [
+    ["Shaded parts / total equal parts", "The shaded parts go on top; the total number of equal parts goes on the bottom."],
+    ["3 shaded out of 8 → 3/8", "Count the shaded pieces for the numerator and all equal pieces for the denominator."],
+    ["6/6 = 1 whole", "If every part is shaded, the numerator and denominator are equal."],
+  ],
+);
+addLearnLesson(
+  "equivpictures",
+  "Equivalent fractions from pictures",
+  "Different fractions that show the same amount",
+  [
+    ["1 of 2 rows = 1/2", "Count the shaded rows to describe the fraction."],
+    ["2 of 4 squares = 2/4", "Counting smaller equal pieces gives another fraction for the same shaded area."],
+    ["1/2 = 2/4", "Equivalent fractions name the same amount. Multiply or divide top and bottom by the same number."],
+  ],
+);
+addLearnLesson(
+  "equivmissing",
+  "Finding the missing number",
+  "Do the same to the top and the bottom",
+  [
+    ["3/5 = ?/40", "Compare the denominators first: 5 must be multiplied by 8 to make 40."],
+    ["5 × 8 = 40", "Whatever you do to the denominator, do the same to the numerator."],
+    ["3 × 8 = 24 → 3/5 = 24/40", "The missing number is 24."],
+    ["50/40 = ?/8", "Here the denominator is divided by 5 to make 8."],
+    ["50 ÷ 5 = 10 → 50/40 = 10/8", "Divide the numerator by the same number."],
+  ],
+);
+addLearnLesson(
+  "lowestterms",
+  "Fractions in lowest terms",
+  "Keep dividing until nothing else fits",
+  [
+    ["228/380", "A fraction is in lowest terms when the top and bottom have no common factor except 1."],
+    ["228/380 = 114/190", "Both numbers are even, so divide the numerator and denominator by 2."],
+    ["114/190 = 57/95 = 3/5", "Divide by 2 again, then by 19. Check that the final top and bottom share no factor."],
+  ],
+);
+addLearnLesson(
+  "impmixed",
+  "Improper fractions to mixed numbers",
+  "Divide the top by the bottom",
+  [
+    ["22/5", "An improper fraction has a numerator greater than its denominator."],
+    ["22 ÷ 5 = 4 remainder 2", "The quotient is the whole number and the remainder is the new numerator."],
+    ["22/5 = 4 2/5", "Keep the original denominator. Reduce the fraction part if possible."],
+  ],
+);
+addLearnLesson(
+  "mixedimp",
+  "Mixed numbers to improper fractions",
+  "Multiply the whole number by the bottom, then add the top",
+  [
+    ["5 2/3", "A mixed number contains whole units and a fraction."],
+    ["(5 × 3) + 2 = 17", "Multiply the whole number by the denominator, then add the numerator."],
+    ["5 2/3 = 17/3", "Use that total as the numerator and keep the denominator."],
+  ],
+);
+addLearnLesson(
+  "orderfrac",
+  "Ordering fractions with the same bottom number",
+  "Compare the top numbers",
+  [
+    ["2/13, 5/13, 4/13, 7/13", "When denominators match, every part has the same size."],
+    ["2 < 4 < 5 < 7", "Compare the numerators: more equal-sized parts means a larger fraction."],
+    ["2/13, 4/13, 5/13, 7/13", "For smallest-first order, list the numerators from least to greatest. Reverse them for largest-first."],
+  ],
+);
+addLearnLesson(
+  "orderfracdiff",
+  "Ordering fractions with different bottom numbers",
+  "Give them the same bottom number first",
+  [
+    ["6/8, 2/10, 7/9, 3/9", "Different denominators mean the pieces have different sizes, so compare equivalent fractions."],
+    ["LCM(8, 10, 9) = 360", "Find a common denominator using the least common multiple."],
+    ["6/8 = 270/360 &nbsp; · &nbsp; 2/10 = 72/360", "Convert each fraction to the common denominator, then compare the numerators."],
+    ["72 < 120 < 270 < 280", "Put the original fractions in the same order as their equivalent numerators."],
+  ],
+);
+addLearnLesson(
+  "addfrac1",
+  "Adding fractions with the same bottom number",
+  "Add the tops, keep the bottom",
+  [
+    ["3/5 + 1/5", "The denominators match, so the parts are the same size."],
+    ["(3 + 1)/5 = 4/5", "Add the numerators and keep the denominator."],
+    ["6/18 + 3/18 = 9/18 = 1/2", "Simplify the result by dividing the numerator and denominator by their common factor."],
+  ],
+);
+addLearnLesson(
+  "addfrac2",
+  "Adding fractions with different bottom numbers",
+  "Find a common bottom number first",
+  [
+    ["3/8 + 5/12", "The denominators differ, so first make equivalent fractions with the same denominator."],
+    ["LCM(8, 12) = 24", "Use the least common multiple as the common denominator."],
+    ["3/8 = 9/24 &nbsp; · &nbsp; 5/12 = 10/24", "Multiply each numerator and denominator by the same factor."],
+    ["9/24 + 10/24 = 19/24", "Add the numerators and simplify if possible."],
+  ],
+);
+addLearnLesson(
+  "addfrac3",
+  "Adding mixed numbers",
+  "Add the whole numbers, add the fractions, then tidy up",
+  [
+    ["2 4/8 + 7 6/8", "Add the whole numbers and fraction parts separately."],
+    ["2 + 7 = 9 &nbsp; · &nbsp; 4/8 + 6/8 = 10/8", "Add the numerators because the denominators match."],
+    ["10/8 = 1 2/8 = 1 1/4", "Rename the improper fraction as a mixed number, then reduce it."],
+    ["9 + 1 1/4 = 10 1/4", "Combine the carried whole number with the original whole-number sum."],
+  ],
+);
+addLearnLesson(
+  "addfrac4",
+  "Adding mixed numbers with different bottom numbers",
+  "Find a common bottom number for the fractions",
+  [
+    ["6 13/14 + 3 3/11", "Add whole numbers and fractions separately. Find a common denominator for the fractions."],
+    ["LCM(14, 11) = 154", "Convert 13/14 to 143/154 and 3/11 to 42/154."],
+    ["143/154 + 42/154 = 185/154 = 1 31/154", "Add the numerators and rename the improper fraction."],
+    ["6 + 3 + 1 31/154 = 10 31/154", "Add the extra whole to the whole-number total."],
+  ],
+);
+addLearnLesson(
+  "subfrac1",
+  "Subtracting fractions with the same bottom number",
+  "Subtract the tops, keep the bottom",
+  [
+    ["13/15 − 8/15", "The denominators match, so the fractional parts are the same size."],
+    ["(13 − 8)/15 = 5/15", "Subtract the numerators and keep the denominator."],
+    ["5/15 = 1/3", "Reduce the answer by dividing top and bottom by 5."],
+  ],
+);
+addLearnLesson(
+  "subfrac2",
+  "Subtracting fractions with different bottom numbers",
+  "Find a common bottom number first",
+  [
+    ["5/8 − 2/5", "Change both fractions to equivalent fractions with a common denominator."],
+    ["LCM(8, 5) = 40", "Use 40 as the common denominator."],
+    ["5/8 = 25/40 &nbsp; · &nbsp; 2/5 = 16/40", "Multiply top and bottom of each fraction by the same factor."],
+    ["25/40 − 16/40 = 9/40", "Subtract the numerators and simplify if possible."],
+  ],
+);
+addLearnLesson(
+  "subfrac3",
+  "Subtracting mixed numbers",
+  "Borrow a whole one when the fraction is too small",
+  [
+    ["8 1/7 − 3 3/7", "The first fraction is smaller than the fraction being subtracted, so regroup one whole."],
+    ["8 1/7 = 7 8/7", "Take 1 from the whole number and add 7/7 to the fraction: 1/7 + 7/7 = 8/7."],
+    ["7 8/7 − 3 3/7 = 4 5/7", "Subtract the whole numbers and then the numerators."],
+    ["For different denominators, convert first", "Find a common denominator, then regroup if the first fraction is too small."],
+  ],
+);
+
+addLearnLesson(
+  "longdivision",
+  "Long division",
+  "Divide one digit at a time, from the left",
+  [
+    ["98 ÷ 7", "Write 7 outside the bracket and 98 inside. Start with the leftmost digit."],
+    ["9 ÷ 7 = 1 remainder 2", "Write 1 above the 9. Subtract 7, then bring down the 8 to make 28."],
+    ["28 ÷ 7 = 4 → 98 ÷ 7 = 14", "Write 4 above the 8. Check: 14 × 7 = 98."],
+  ],
+);
+addLearnLesson(
+  "longdivisionzero",
+  "Long division with a zero in the answer",
+  "When a digit does not share",
+  [
+    ["540 ÷ 5", "Begin from the left: 5 goes into 5 once."],
+    ["Bring down 4: 4 ÷ 5 = 0", "Write 0 in the quotient. Bring down the last digit to make 40."],
+    ["40 ÷ 5 = 8 → 540 ÷ 5 = 108", "Write 8. Keep the zero in the tens place of the quotient."],
+  ],
+);
+addLearnLesson(
+  "longdivision4",
+  "Long division with bigger numbers",
+  "The same steps, four digits",
+  [
+    ["7812 ÷ 3", "Work from left to right, bringing down one digit at a time."],
+    ["7 ÷ 3 = 2 r 1; bring down 8 → 18", "Divide, write the quotient digit, subtract and bring down the next digit."],
+    ["18 ÷ 3 = 6; 1 ÷ 3 = 0; 12 ÷ 3 = 4", "Keep a zero in the quotient when a digit does not divide. The answer is 2604."],
+  ],
+);
+addLearnLesson(
+  "longdivrem1",
+  "Long division with a remainder",
+  "When the numbers do not share exactly",
+  [
+    ["71 ÷ 4", "Divide from the left, writing each quotient digit above its place."],
+    ["7 ÷ 4 = 1 r 3; bring down 1 → 31", "Continue dividing after bringing down the next digit."],
+    ["31 ÷ 4 = 7 r 3 → 17 remainder 3", "The leftover 3 is the remainder. Check: 17 × 4 + 3 = 71."],
+  ],
+);
+addLearnLesson(
+  "longdivrem2d1",
+  "Long division by a two-digit number with a remainder",
+  "Use the divisor's times table, then find the remainder",
+  [
+    ["395 ÷ 24", "Write out multiples of 24 to help decide how many fit at each step."],
+    ["24 × 1 = 24 … 24 × 9 = 216", "Use the largest multiple that does not go past the number being divided."],
+    ["395 ÷ 24 = 16 remainder 11", "Check: 16 × 24 = 384, and 384 + 11 = 395."],
+  ],
+);
+addLearnLesson(
+  "longdivrem2d2",
+  "Two-digit long division with a remainder: four digits",
+  "A remainder can be a two-digit number too",
+  [
+    ["6612 ÷ 48", "Divide from the left using multiples of 48."],
+    ["48 × 1 = 48; 48 × 2 = 96", "At each step choose the greatest multiple that fits, then subtract and bring down a digit."],
+    ["6612 ÷ 48 = 137 remainder 36", "Check: 137 × 48 = 6576, then 6576 + 36 = 6612."],
+  ],
+);
+addLearnLesson(
+  "longdivrem2d3",
+  "Two-digit long division with a remainder: five digits",
+  "The same steps, one more digit",
+  [
+    ["66120 ÷ 48", "Use the divisor's times table and work through the dividend from left to right."],
+    ["Bring down each digit in turn", "When the current amount is smaller than 48, write 0 in that quotient place and bring down the next digit."],
+    ["66120 ÷ 48 = 1377 remainder 24", "Check: 1377 × 48 = 66096, and 66096 + 24 = 66120."],
+  ],
+);
+addLearnLesson(
+  "longdivrem2",
+  "Long division with a remainder: bigger numbers",
+  "Three digits",
+  [
+    ["238 ÷ 6", "Divide from the left and bring down the next digit after each subtraction."],
+    ["23 ÷ 6 = 3 remainder 5; bring down 8 → 58", "Use the remainder with the next digit to continue."],
+    ["58 ÷ 6 = 9 remainder 4 → 39 remainder 4", "Check: 39 × 6 + 4 = 238."],
+  ],
+);
+addLearnLesson(
+  "longdivrem3",
+  "Long division with a remainder: four digits",
+  "With a zero in the answer",
+  [
+    ["2403 ÷ 5", "Divide one digit at a time from the left."],
+    ["24 ÷ 5 = 4 remainder 4; bring down 0 → 40", "Continue with the remainder and the next digit."],
+    ["40 ÷ 5 = 8; bring down 3, write 0 remainder 3", "The quotient is 480 remainder 3. Check: 480 × 5 + 3 = 2403."],
+  ],
+);
+addLearnLesson(
+  "longdivision2a",
+  "Long division by a two-digit number",
+  "Use the divisor's times table to help",
+  [
+    ["315 ÷ 15", "Write out the 15 times table so you can find useful multiples."],
+    ["15 × 2 = 30; 15 × 1 = 15", "Choose multiples that fit each partial dividend, subtract, and bring down the next digit."],
+    ["315 ÷ 15 = 21", "Check by multiplying: 21 × 15 = 315."],
+  ],
+);
+addLearnLesson(
+  "longdivision2b",
+  "Two-digit long division with a zero in the answer",
+  "When the number is too small to share",
+  [
+    ["2678 ÷ 13", "Divide from the left, keeping each quotient digit in its correct place."],
+    ["26 ÷ 13 = 2; bring down 7", "Continue with 7. Since 13 does not fit, write 0 in the quotient and bring down 8."],
+    ["78 ÷ 13 = 6 → 2678 ÷ 13 = 206", "The zero is an important place holder. Check: 206 × 13 = 2678."],
+  ],
+);
+addLearnLesson(
+  "longdivision2c",
+  "Two-digit long division with bigger numbers",
+  "Five digits, same steps",
+  [
+    ["53014 ÷ 26", "Use the same long-division process for a longer dividend."],
+    ["Bring down one digit at a time", "Find the largest multiple of 26 that fits, subtract it, then continue."],
+    ["53014 ÷ 26 = 2039", "Check: 2039 × 26 = 53014."],
+  ],
+);
+
+addDivisionLearnLesson(
+  2,
+  "Dividing by 2",
+  "Division means sharing equally. 12 ÷ 2 = 6 because 12 shared into 2 equal groups gives 6 in each group. Division reverses multiplication.",
+);
+addDivisionLearnLesson(
+  3,
+  "Dividing by 3",
+  "Think of the 3 times table backwards. Since 9 × 3 = 27, 27 ÷ 3 = 9.",
+);
+addDivisionLearnLesson(
+  5,
+  "Dividing by 5",
+  "Think of the 5 times table backwards. Since 12 × 5 = 60, 60 ÷ 5 = 12.",
+);
+addDivisionLearnLesson(
+  10,
+  "Dividing by 10",
+  "Use the 10 times table backwards. For whole multiples of 10, dividing by 10 removes the final zero: 120 ÷ 10 = 12.",
+);
+addDivisionLearnLesson(
+  4,
+  "Dividing by 4",
+  "Halve, then halve again. For 48 ÷ 4, half of 48 is 24 and half of 24 is 12.",
+);
+addDivisionLearnLesson(
+  6,
+  "Dividing by 6",
+  "Think of the 6 times table backwards. You can also halve the number, then divide by 3.",
+);
+addDivisionLearnLesson(
+  7,
+  "Dividing by 7",
+  "Think of the 7 times table backwards. Since 12 × 7 = 84, 84 ÷ 7 = 12.",
+);
+addDivisionLearnLesson(
+  8,
+  "Dividing by 8",
+  "Halve three times to divide by 8. For 96 ÷ 8: 96 → 48 → 24 → 12.",
+);
+addDivisionLearnLesson(
+  9,
+  "Dividing by 9",
+  "Think of the 9 times table backwards. Since 12 × 9 = 108, 108 ÷ 9 = 12.",
+);
+addDivisionLearnLesson(
+  11,
+  "Dividing by 11",
+  "Think of the 11 times table backwards. For example, 44 ÷ 11 = 4 and 132 ÷ 11 = 12.",
+);
+addDivisionLearnLesson(
+  12,
+  "Dividing by 12",
+  "Think of the 12 times table backwards. Since 12 × 12 = 144, 144 ÷ 12 = 12.",
+);
+addLearnLesson(
+  "divmixed",
+  "Mixed division",
+  "Use your times tables backwards",
+  [
+    ["56 ÷ 8 = ?", "Turn the division into a multiplication question."],
+    ["8 × ? = 56", "Ask which number multiplied by 8 makes 56."],
+    ["8 × 7 = 56 → 56 ÷ 8 = 7", "The missing factor is the answer. Zero divided by a non-zero number is zero."],
+  ],
+);
+addLearnLesson(
+  "columnaddfour",
+  "Adding four numbers in columns",
+  "Add each column, carry to the next",
+  [
+    ["5927 + 4438 + 8353 + 2906", "Line up the numbers by place value and start with the ones."],
+    ["Ones: 7 + 8 + 3 + 6 = 24", "Write 4 in the ones place and carry 2 tens."],
+    ["Tens: 2 + 3 + 5 + 0 + 2 = 12", "Write 2 and carry 1 hundred. Continue the same way across."],
+    ["Thousands: 5 + 4 + 8 + 2 + 2 = 21", "The total is 21,624. The last column may contribute more than one digit."],
+  ],
+);
+addLearnLesson(
+  "longmultiply",
+  "Multiplying by a two-digit number",
+  "Two rows, then add them together",
+  [
+    ["13 × 23", "Multiply 13 by the ones digit first, then by the tens digit."],
+    ["13 × 3 = 39", "Write the first partial product."],
+    ["13 × 20 = 260", "The 2 in 23 means 20, so the second partial product is 260."],
+    ["39 + 260 = 299", "Add the partial products. Therefore 13 × 23 = 299."],
+  ],
+);
+addLearnLesson(
+  "columnmultiply",
+  "Column multiplication",
+  "Multiply each column, carry when you need to",
+  [
+    ["89 × 4", "Write the two-digit number above the single digit."],
+    ["9 × 4 = 36", "Write 6 in the ones place and carry 3 tens."],
+    ["8 × 4 + 3 = 35", "Multiply the tens digit and add the carried tens."],
+    ["89 × 4 = 356", "Write 35 before the 6. Check: 90 × 4 − 4 = 356."],
+  ],
+);
+addLearnLesson(
+  "columnmultiply4",
+  "Multiplying bigger numbers",
+  "Work from the right, carrying each time",
+  [
+    ["5463 × 8", "Start with the ones column and work from right to left."],
+    ["3 × 8 = 24", "Write 4 and carry 2."],
+    ["6 × 8 + 2 = 50; 4 × 8 + 5 = 37", "Write each ones digit and carry the tens into the next column."],
+    ["5 × 8 + 3 = 43 → 5463 × 8 = 43704", "Write the whole result from the final column. The product is 43,704."],
+  ],
+);
+
 // A compact reference grid for the Learn tab, showing every fact in a
 // times table from 0 to 12 at once (used for "memorise before you start").
 function buildTimesTableHTML(multiplier) {
@@ -2453,6 +3146,24 @@ function buildTimesTableHTML(multiplier) {
       n +
       " = <strong>" +
       multiplier * n +
+      "</strong></div>";
+  }
+  return (
+    '<div style="max-height:280px;overflow-y:auto;display:grid;grid-template-columns:1fr 1fr;gap:0 12px;font-size:15px;margin:14px 0;">' +
+    rows +
+    "</div>"
+  );
+}
+function buildDivisionTableHTML(divisor) {
+  let rows = "";
+  for (let n = 1; n <= 12; n++) {
+    rows +=
+      '<div style="padding:4px 8px;border-bottom:1px solid var(--border);">' +
+      n * divisor +
+      " ÷ " +
+      divisor +
+      " = <strong>" +
+      n +
       "</strong></div>";
   }
   return (
@@ -2736,7 +3447,7 @@ function getSubtopicProgress(student, key) {
 // ------------------------------------------------------------------
 // SHOP ITEMS -- how to add / update prizes
 //  Option A (no code): put a published Google Sheet CSV link in SHOP_FEED_URL.
-//     Columns: id, name, cost, category, image, active. Edit the sheet any
+//     Columns: id, name, cost, value, category, image, active. Edit the sheet any
 //     time -- the app picks up changes next time it opens. If the link is
 //     empty or unreachable, the built-in list below is used instead.
 //  Option B (edit code): add lines to BUILT_IN_SHOP_ITEMS below.
@@ -2746,46 +3457,68 @@ function getSubtopicProgress(student, key) {
 const SHOP_FEED_URL = ""; // e.g. "https://docs.google.com/spreadsheets/d/e/XXXX/pub?output=csv"
 const BUILT_IN_SHOP_ITEMS = [
   {
-    id: "star",
-    name: "Gold Star",
-    cost: 100,
-    category: "Badges",
-    icon: iconStar,
+    id: "small-toy",
+    name: "Small surprise toy",
+    cost: 3000,
+    value: "£3",
+    category: "Gifts",
+    icon: iconToy,
   },
   {
-    id: "book",
-    name: "Book Token",
-    cost: 300,
+    id: "happy-meal",
+    name: "Happy Meal treat",
+    cost: 6000,
+    value: "£6",
+    category: "Treats",
+    icon: iconMeal,
+  },
+  {
+    id: "book-voucher",
+    name: "Children's book voucher",
+    cost: 5000,
+    value: "£5",
     category: "Vouchers",
     icon: iconBook,
   },
   {
-    id: "trophy",
-    name: "Trophy Badge",
-    cost: 600,
-    category: "Badges",
-    icon: iconTrophy,
+    id: "smyths",
+    name: "Smyths toy voucher",
+    cost: 5000,
+    value: "£5",
+    category: "Vouchers",
+    icon: iconVoucher,
   },
   {
-    id: "rocket",
-    name: "Rocket Badge",
-    cost: 900,
-    category: "Badges",
-    icon: iconRocket,
+    id: "lego",
+    name: "LEGO or toy gift",
+    cost: 8000,
+    value: "£8",
+    category: "Gifts",
+    icon: iconLego,
   },
   {
-    id: "gift",
-    name: "Mystery Gift",
-    cost: 1200,
+    id: "burger-king",
+    name: "Burger King meal treat",
+    cost: 10000,
+    value: "£10",
+    category: "Treats",
+    icon: iconBurger,
+  },
+  {
+    id: "big-toy",
+    name: "Big toy surprise",
+    cost: 10000,
+    value: "£10",
     category: "Gifts",
     icon: iconGift,
   },
   {
-    id: "crown",
-    name: "Maths Champion Crown",
-    cost: 2000,
-    category: "Badges",
-    icon: iconCrown,
+    id: "premium-toy",
+    name: "Premium toy reward",
+    cost: 10000,
+    value: "£10",
+    category: "Gifts",
+    icon: iconTrophy,
   },
 ];
 let shopItems = BUILT_IN_SHOP_ITEMS.slice();
@@ -2853,6 +3586,7 @@ function shopItemsFromCSV(text) {
       id: id,
       name: name,
       cost: cost,
+      value: get("value"),
       category: get("category") || "Other",
       image: image,
     });
@@ -2902,6 +3636,21 @@ function iconRocket() {
 function iconGift() {
   return '<svg viewBox="0 0 100 100"><rect x="20" y="40" width="60" height="45" fill="#2f9e6e"/><rect x="20" y="30" width="60" height="14" fill="#267a56"/><rect x="46" y="30" width="8" height="55" fill="#d9a441"/></svg>';
 }
+function iconToy() {
+  return '<svg viewBox="0 0 100 100"><circle cx="30" cy="28" r="10" fill="#c98b5a"/><circle cx="70" cy="28" r="10" fill="#c98b5a"/><circle cx="50" cy="48" r="26" fill="#c98b5a"/><circle cx="50" cy="56" r="11" fill="#ecd3b6"/><circle cx="41" cy="44" r="3.5" fill="#333"/><circle cx="59" cy="44" r="3.5" fill="#333"/><ellipse cx="50" cy="54" rx="4" ry="3" fill="#333"/><circle cx="50" cy="84" r="12" fill="#e0715a"/></svg>';
+}
+function iconMeal() {
+  return '<svg viewBox="0 0 100 100"><path d="M22 38 h56 l-6 46 h-44 z" fill="#e0715a"/><path d="M22 38 q28 -26 56 0 z" fill="#d9a441"/><path d="M38 38 l-4 -14 M62 38 l4 -14" stroke="#b8862f" stroke-width="4"/><text x="50" y="72" font-size="26" text-anchor="middle" fill="#fff" font-weight="700">M</text></svg>';
+}
+function iconVoucher() {
+  return '<svg viewBox="0 0 100 100"><rect x="10" y="26" width="80" height="48" rx="6" fill="#4a90d9"/><circle cx="10" cy="50" r="7" fill="#fff"/><circle cx="90" cy="50" r="7" fill="#fff"/><line x1="66" y1="30" x2="66" y2="70" stroke="#fff" stroke-width="2" stroke-dasharray="4 3"/><text x="38" y="58" font-size="22" text-anchor="middle" fill="#fff" font-weight="700">£5</text></svg>';
+}
+function iconLego() {
+  return '<svg viewBox="0 0 100 100"><rect x="14" y="40" width="72" height="42" rx="4" fill="#e0715a"/><circle cx="30" cy="34" r="8" fill="#e0715a"/><circle cx="50" cy="34" r="8" fill="#e0715a"/><circle cx="70" cy="34" r="8" fill="#e0715a"/><circle cx="30" cy="30" r="3" fill="#ef9484"/><circle cx="50" cy="30" r="3" fill="#ef9484"/><circle cx="70" cy="30" r="3" fill="#ef9484"/></svg>';
+}
+function iconBurger() {
+  return '<svg viewBox="0 0 100 100"><path d="M18 46 q32 -36 64 0 z" fill="#d9a441"/><rect x="16" y="50" width="68" height="8" rx="4" fill="#2f9e6e"/><rect x="18" y="58" width="64" height="10" rx="5" fill="#7a4a2b"/><path d="M18 70 h64 q0 14 -14 14 h-36 q-14 0 -14 -14 z" fill="#d9a441"/></svg>';
+}
 function iconCrown() {
   return '<svg viewBox="0 0 100 100"><polygon points="15,75 15,40 32,55 50,25 68,55 85,40 85,75" fill="#d9a441"/><rect x="15" y="75" width="70" height="10" fill="#b8862f"/></svg>';
 }
@@ -2923,6 +3672,7 @@ let state = {
   timerInterval: null,
   lastResult: null,
   codeError: "",
+  loggingIn: false,
 };
 
 function formatTime(sec) {
@@ -2934,19 +3684,44 @@ function currentSubtopic() {
   return TOPICS[state.topicIdx].subtopics[state.subtopicIdx];
 }
 
-function enterCode() {
-  const input = document.getElementById("codeInput");
-  const code = sanitizeCode(input.value);
-  if (!code) {
-    state.codeError = "Please type a name or code.";
+async function enterCode() {
+  if (state.loggingIn) return;
+  const usernameInput = document.getElementById("usernameInput");
+  const secretCodeInput = document.getElementById("secretCodeInput");
+  const username = sanitizeCode(usernameInput.value);
+  const secretCode = secretCodeInput.value.trim();
+  if (!username || !secretCode) {
+    state.codeError = "Please type your username and secret code.";
     render();
     return;
   }
-  state.code = code;
-  state.student = loadStudent(code);
-  state.codeError = "";
-  state.phase = "home";
-  render();
+
+  const submitBtn = document.getElementById("codeSubmitBtn");
+  state.loggingIn = true;
+  if (submitBtn) {
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Checking…";
+  }
+  try {
+    const student = await fetchStudentByUsername(username, secretCode);
+    if (!student) {
+      state.codeError = "That username and secret code don't match. Please try again.";
+      state.loggingIn = false;
+      render();
+      return;
+    }
+    state.code = student.code;
+    state.student = student;
+    state.codeError = "";
+    state.loggingIn = false;
+    state.phase = "home";
+    render();
+  } catch (err) {
+    console.error("Login failed:", err);
+    state.codeError = "Could not verify your login. Please try again.";
+    state.loggingIn = false;
+    render();
+  }
 }
 function switchStudent() {
   clearInterval(state.timerInterval);
@@ -3139,7 +3914,15 @@ function finishRound() {
       subtopicComplete = true;
     }
   }
-  saveStudent(state.student);
+  syncRoundToSupabase(
+    state.student,
+    subtopic.key,
+    state.practicingLevelIdx,
+    elapsed,
+    newBestTime,
+    roundPts,
+    progress.currentLevel,
+  ).catch(console.error);
 
   state.lastResult = {
     allCorrect: allCorrect,
@@ -3412,7 +4195,7 @@ function redeemItem(itemId) {
     cost: item.cost,
     timestamp: Date.now(),
   });
-  saveStudent(state.student);
+  syncPurchaseToSupabase(state.student, item).catch(console.error);
   render();
 }
 function shopVisibleItems() {
@@ -3450,6 +4233,11 @@ function shopItemHtml(item) {
     '</div><div class="cost">' +
     item.cost +
     " pts</div>" +
+    (item.value
+      ? '<div class="cost" style="margin-top:-6px;font-size:11px;">Value ' +
+        escapeHtml(item.value) +
+        "</div>"
+      : "") +
     '<button class="buy" data-item="' +
     escapeHtml(item.id) +
     '" ' +
@@ -3508,9 +4296,17 @@ function renderInner() {
   if (state.phase !== "codeEntry" && state.code) {
     footnote.innerHTML =
       "Playing as <strong>" +
-      state.code +
+      escapeHtml(state.code) +
       '</strong> · <span class="switch-link" id="switchLink">Not you? Switch student</span>';
   }
+
+  const point = document.getElementById("pointsBox");
+  if (state.phase === "codeEntry" || !state.student)
+    point.style.display = "none";
+  else point.style.display = "block";
+  document.querySelector(".topbar").style.display =
+    state.phase === "codeEntry" ? "none" : "";
+
   // The main-menu button lives outside the dynamic card area, so it's
   // always on screen -- including mid-question, not just on list screens.
   const homeMenuBtn = document.getElementById("homeMenuBtn");
@@ -3521,24 +4317,41 @@ function renderInner() {
     render();
   });
   const card = document.getElementById("card");
-
+  card.classList.toggle("login-view", state.phase === "codeEntry");
   if (state.phase === "codeEntry") {
     card.innerHTML =
-      '<div class="center">' +
-      '<p class="instructions">Enter your name or the code your tutor gave you.</p>' +
+      '<div class="login-panel"><div class="login-hero">' +
+      '<div class="login-brand"><span class="login-brand-mark" aria-hidden="true">🧮</span><span>Maths <strong>Mastery</strong></span></div>' +
+      '<div class="login-mascot" aria-hidden="true"><span>🦊</span><i class="spark spark-one">✦</i><i class="spark spark-two">+</i></div>' +
+      '<p class="login-kicker">YOUR MATHS ADVENTURE STARTS HERE</p>' +
+      '<p>Explore, practise, and celebrate every little win!</p>' +
+      '<div class="login-perks"><span>🧠 Practice</span><span>⭐ Earn points</span><span>🎁 Pick rewards</span></div>' +
+      '</div><div class="login-form">' +
+      '<p class="instructions">Sign in to continue your adventure.</p>' +
       (state.codeError
-        ? '<div class="error-text">' + state.codeError + "</div>"
+        ? '<div class="error-text">' + escapeHtml(state.codeError) + "</div>"
         : "") +
-      '<input type="text" id="codeInput" placeholder="e.g. amelia23" />' +
-      '<button class="primary full" id="codeSubmitBtn">Continue</button></div>';
+      '<label for="usernameInput">Your username</label>' +
+      '<input type="text" id="usernameInput" placeholder="Type your username" autocomplete="username" autocapitalize="none" />' +
+      '<label for="secretCodeInput">Your secret code</label>' +
+      '<input type="password" id="secretCodeInput" placeholder="Type your secret code" autocomplete="current-password" />' +
+      '<button class="primary full login-continue" id="codeSubmitBtn" ' +
+      (state.loggingIn ? "disabled" : "") +
+      ">" +
+      (state.loggingIn ? "Checking…" : "Let's go!") +
+      '</button><p class="login-footer">Every practice round is a chance to shine. ✨</p>' +
+      '<a href="/admin" style="text-decoration: none;display:block;text-align:center;margin-top:12px;font-size:12px;color:var(--muted);">Admin login</a>' +
+      "</div></div>";
     document.getElementById("codeSubmitBtn").onclick = safeHandler(enterCode);
-    document.getElementById("codeInput").addEventListener(
-      "keydown",
-      safeHandler((e) => {
-        if (e.key === "Enter") enterCode();
-      }),
-    );
-    document.getElementById("codeInput").focus();
+    ["usernameInput", "secretCodeInput"].forEach((id) => {
+      document.getElementById(id).addEventListener(
+        "keydown",
+        safeHandler((e) => {
+          if (e.key === "Enter") enterCode();
+        }),
+      );
+    });
+    document.getElementById("usernameInput").focus();
     return;
   }
 
@@ -3645,7 +4458,7 @@ function renderInner() {
       step.caption +
       "</p>" +
       '<div style="display:flex;gap:10px;">' +
-      '<button class="tab-btn" id="prevStepBtn" style="flex:0 0 90px;" ' +
+      '<button class="prev-btn" id="prevStepBtn" style="flex:0 0 90px;" ' +
       (state.learnStep === 0 ? "disabled" : "") +
       ">&larr; Back</button>" +
       '<button class="primary" id="nextStepBtn" style="flex:1;">' +
@@ -3768,11 +4581,14 @@ function renderInner() {
   }
 
   if (state.phase === "home") {
+    const topicIcons = ["🔢", "🎲", "🧩", "🔺", "⭐", "🧮", "🔷", "🚀"];
     const rows = TOPICS.map(
       (topic, i) =>
-        '<div class="list-row" data-topic="' +
+        '<div class="list-row topic-row" data-topic="' +
         i +
-        '"><div><div class="title">' +
+        '"><div class="topic-icon" aria-hidden="true">' +
+        topicIcons[i % topicIcons.length] +
+        '</div><div class="topic-copy"><div class="title">' +
         topic.name +
         "</div>" +
         '<div class="meta">' +
@@ -3783,7 +4599,10 @@ function renderInner() {
     ).join("");
     card.innerHTML =
       tabsHtml +
-      '<p class="instructions">Choose a topic to practice.</p>' +
+    '<div class="home-welcome"><div class="home-welcome-icon" aria-hidden="true">🌟</div>' +
+    '<div><p class="home-kicker">HI, ' +
+    escapeHtml(state.code || "MATHS STAR") +
+    '!</p><h2>Pick your next challenge</h2><p>Choose a topic, collect points, and see how far you can go.</p></div></div>' +
       rows;
     document.getElementById("shopTabBtn").onclick = safeHandler(() => {
       state.phase = "shop";
