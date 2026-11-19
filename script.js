@@ -4340,7 +4340,6 @@ function renderInner() {
       ">" +
       (state.loggingIn ? "Checking…" : "Let's go!") +
       '</button><p class="login-footer">Every practice round is a chance to shine. ✨</p>' +
-      '<a href="/admin" style="text-decoration: none;display:block;text-align:center;margin-top:12px;font-size:12px;color:var(--muted);">Admin login</a>' +
       "</div></div>";
     document.getElementById("codeSubmitBtn").onclick = safeHandler(enterCode);
     ["usernameInput", "secretCodeInput"].forEach((id) => {
